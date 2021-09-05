@@ -41,3 +41,60 @@ const str = 'I am string'
 const str1 = new String ('I am string')
 //класс Object является самым главным в js и всё от него идет
 // поэтому даже строка будет иметь доступ к функции sayHello
+
+
+//===============================================================
+// контекст this === window
+// this обращается к объекту, который находится слева
+
+const dima = {
+    age:21,
+    name: 'Dmitriy',
+    job: 'driver',
+    info: function (phone) {
+        console.group (`${this.name} info:`)
+        console.log (this.age)
+        console.log(this.job)
+        console.log(phone)
+        console.groupEnd()
+    }
+}
+dima.info('06712312312');
+
+const olga = {
+    age:18,
+    job:'FrontEnd',
+    name:'Olga'
+}
+dima.info.bind(olga, '0977771122')(); //вывели данные ольги обратившись к функции димы
+
+//===================================
+//есть массив, нужно умножить каждое значение на заданное число
+// решаем обычным способом
+
+const array =[1,2,3,4,5]
+
+function multyply(arr, n) {
+    return arr.map(
+        function (i) {
+            return i * n
+        }
+    )
+}
+console.log ('Исходный массив:')
+console.log (array)
+console.log ('Перемножаем его на 2:')
+console.log (multyply(array, 2));
+
+// создаем метод для массивов
+Array.prototype.mult = function (n) {
+    return this.map(
+        function (i) {
+            return i * n
+        }
+    )
+}
+console.log ('А теперь тоже при помощи метода, умножаем на 3:')
+console.log (array.mult(3))
+console.log ('метод можно сразу использовать на любом массиве, например:')
+console.log([1,2,3].mult(4))
